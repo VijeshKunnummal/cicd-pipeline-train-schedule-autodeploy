@@ -36,7 +36,7 @@ pipeline {
                      //   app.push("${env.BUILD_NUMBER}")
                        // app.push("latest")
                     //}
-                    sh 'docker push kunnvij/devops_training'
+                    sh 'docker push kunnvij/devops_training:${env.BUILD_NUMBER}'
                 }
             }
         }
