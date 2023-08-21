@@ -25,7 +25,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training_1') {
+                    docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
