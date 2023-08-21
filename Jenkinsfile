@@ -36,7 +36,7 @@ pipeline {
                      //   app.push("${env.BUILD_NUMBER}")
                      //   app.push("latest")
                     //}
-                    sh `docker push ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}`
+                    sh 'docker push ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}'
                 }
             }
         }
