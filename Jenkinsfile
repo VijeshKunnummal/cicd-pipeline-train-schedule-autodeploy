@@ -3,6 +3,7 @@ pipeline {
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "kunnvij/devops_training"
+        DOCKERHUB_CREDENTIALS = credentials('devops_training')
     }
     stages {
         stage('Build') {
@@ -15,20 +16,27 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
-                    app.inside {
-                        sh 'echo Hello, World!'
-                    }
+                    //app = docker.build(DOCKER_IMAGE_NAME)
+                    //app.inside {
+                    //    sh 'echo Hello, World!'
+                    //}
+                    sh 'docker build -t kunnvij/devops_training .'
                 }
             }
+        }
+        stage('Login') {
+          steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
+                    //docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training') {
+                     //   app.push("${env.BUILD_NUMBER}")
+                       // app.push("latest")
+                    //}
+                    sh 'docker push kunnvij/devops_training'
                 }
             }
         }
