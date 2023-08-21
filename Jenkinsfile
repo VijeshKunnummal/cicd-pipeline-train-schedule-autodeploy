@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
-        DOCKER_IMAGE_NAME = "kunnvij/devops_training"
+        DOCKER_IMAGE_NAME = "devops_training"
     }
     stages {
         stage('Build') {
@@ -25,7 +25,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com/kunnvij/devops_training', 'devops_training_1') {
+                    docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training_1') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
