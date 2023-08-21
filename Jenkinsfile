@@ -16,11 +16,11 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    //app = docker.build(DOCKER_IMAGE_NAME)
-                    //app.inside {
-                    //    sh 'echo Hello, World!'
-                    //}
-                    sh 'docker build -t kunnvij/devops_training .'
+                    app = docker.build(DOCKER_IMAGE_NAME)
+                    app.inside {
+                        sh 'echo Hello, World!'
+                    }
+                    //sh 'docker build -t kunnvij/devops_training .'
                 }
             }
         }
@@ -32,11 +32,11 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    //docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training') {
-                     //   app.push("${env.BUILD_NUMBER}")
-                       // app.push("latest")
-                    //}
-                    sh 'docker push kunnvij/devops_training:${env.BUILD_NUMBER}'
+                    docker.withRegistry('https://hub.docker.com/kunnvij/devops_training', 'devops_training') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                    //sh 'docker push kunnvij/devops_training:${env.BUILD_NUMBER}'
                 }
             }
         }
