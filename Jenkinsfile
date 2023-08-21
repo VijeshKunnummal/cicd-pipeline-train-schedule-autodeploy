@@ -75,5 +75,10 @@ pipeline {
                 sh 'kubectl apply -f ./train-schedule-kube.yml'
             }
         }
+        stage('VerifyPostDeploy') {
+            steps {
+                sh 'kubectl get deployments'
+            }
+        }
     }
 }
