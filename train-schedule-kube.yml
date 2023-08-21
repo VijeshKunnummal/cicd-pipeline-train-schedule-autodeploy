@@ -31,9 +31,10 @@ spec:
         app: train-schedule
         track: stable
     spec:
+      serviceAccountName: jenkins-robot
       containers:
       - name: train-schedule
-        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
+        image: $DOCKER_IMAGE_NAME
         ports:
         - containerPort: 30001
         livenessProbe:
